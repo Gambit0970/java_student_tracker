@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>CTA Student Tracker</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div th:if="${not #lists.isEmpty(courses)}">
+        <h2>Course List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Course Name</th>
+                <th>Course Description</th>
+            </tr>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.id}">Id</td>
+                <td th:text="${course.name}">Course Name</td>
+                <td th:text="${course.description}">Course Description</td>
+
+            </tr>
+        </table>
+        <a href="#" th:href="@{/course/new}"> Add more courses</a>
+    </div>
+</div>
+
+</body>
+</html>
