@@ -1,7 +1,9 @@
 package com.cta.training.studenttracker.bootstrap;
 
+import com.cta.training.studenttracker.domain.Cohort;
 import com.cta.training.studenttracker.domain.Course;
 import com.cta.training.studenttracker.domain.Student;
+import com.cta.training.studenttracker.repositories.CohortRepository;
 import com.cta.training.studenttracker.repositories.CourseRepository;
 import com.cta.training.studenttracker.repositories.StudentRepository;
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +13,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 
 @Component
 public class StudentLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -19,6 +23,7 @@ public class StudentLoader implements ApplicationListener<ContextRefreshedEvent>
     private CourseRepository courseRepository;
 
     private Logger log = LogManager.getLogger(StudentLoader.class);
+    private CohortRepository cohortRepository;
 
     @Autowired
     public void setStudentRepository(StudentRepository studentRepository) {
@@ -31,6 +36,11 @@ public class StudentLoader implements ApplicationListener<ContextRefreshedEvent>
     }
 
 
+    @Autowired
+    public void setcohortRepository(CohortRepository cohortRepository) {
+        this.cohortRepository = cohortRepository;
+    }
+    
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -43,6 +53,14 @@ public class StudentLoader implements ApplicationListener<ContextRefreshedEvent>
         dev.setName("Development");
         dev.setDescription("Core training with programming, web development and advanced OOP / patterns");
         courseRepository.save(dev);
+
+        Cohort cohort = new Cohort();
+        cohort.setCourse("Development");
+        cohort.setName("Dev 2023 A");
+        cohort.setStartDate(new Date(2023, 4,6));
+        cohort.setEndDate(new Date(2023, 6,20));
+        cohortRepository.save(cohort);
+        log.info("Saved cohort: " + cohort.getId());
 
         Student student1 = new Student();
         student1.setName("Bob");

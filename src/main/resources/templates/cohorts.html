@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>CTA Student Tracker</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div th:if="${not #lists.isEmpty(cohorts)}">
+        <h2>Cohort List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="cohort : ${cohorts}">
+                <td th:text="${cohort.id}">Id</td>
+                <td th:text="${cohort.name}">Name</td>
+                <td th:text="${cohort.course}">Course</td>
+                <td th:text="${cohort.startDate}">Start date</td>
+                <td th:text="${cohort.endDate}">End date</td>
+                <td><a th:href="${ '/cohort/' + cohort.id}">View</a></td>
+                <td><a th:href="${'/cohort/edit/' + cohort.id}">Edit</a></td>
+                <td><a th:href="${'/cohort/delete/' + cohort.id}">Delete</a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>
