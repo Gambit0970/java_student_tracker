@@ -1,7 +1,6 @@
 package com.cta.training.studenttracker.domain;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 public class Student {
